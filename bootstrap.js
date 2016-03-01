@@ -25,11 +25,9 @@ var cf = {
 			aChannel.QueryInterface(Ci.nsIPrivateBrowsingChannel);
 //			Cu.reportError(aChannel.isChannelPrivate);
 			if (aChannel.isChannelPrivate) {
-				if (onList) {
-					if (listTest(aChannel.URI.host)) {
-						result = aProxy;
-					}
-				} else {
+				result = aProxy;
+			} else if (onList) {
+				if (listTest(aChannel.URI.host)) {
 					result = aProxy;
 				}
 			}
@@ -51,15 +49,9 @@ var myPrefsWatcher = {
 		switch (data) {
 			case "onPrivate":
 				onPrivate = Services.prefs.getBoolPref("extensions.pxruler.onPrivate");
-				if (onPrivate) {
-					Services.prefs.setBoolPref("extensions.pxruler.onList", false);
-				}
 				break;
 			case "onList":
 				onList = Services.prefs.getBoolPref("extensions.pxruler.onList");
-				if (onList) {
-					Services.prefs.setBoolPref("extensions.pxruler.onPrivate", false);
-				}
 				break;
 			case "domList":
 				domList = Services.prefs.getCharPref("extensions.pxruler.domList");
