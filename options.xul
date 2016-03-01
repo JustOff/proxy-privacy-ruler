@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<!DOCTYPE mydialog SYSTEM "chrome://pxruler/locale/pxruler.dtd">
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<setting type="bool" pref="extensions.pxruler.onPrivate" title="Limit to Private Tabs and Windows">
+		Proxy will be used only in Private Tabs and Windows + for Domain List, if next option is enabled
+	</setting>
+	<setting type="bool" pref="extensions.pxruler.onList" title="Limit by Domain List">
+		Proxy will be used only for Domain List below + in Private Tabs and Windows, if option above is enabled
+	</setting>
+	<setting type="string" pref="extensions.pxruler.domList" title="Domain List">
+		Use ; as separator to list multiple domains
+	</setting>
+</vbox>
