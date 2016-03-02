@@ -1,6 +1,4 @@
 content pxruler content/
 
-skin pxruler classic/1.0 skin/
-
 locale pxruler en-US locale/en-US/
 locale pxruler ru-RU locale/ru-RU/

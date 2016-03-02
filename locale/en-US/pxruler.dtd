@@ -1,6 +1,6 @@
-<!ENTITY pxruler.onPrivate "Limit by Private Browsing">
+<!ENTITY pxruler.onPrivate "Limit Proxy by Private Browsing">
 <!ENTITY pxruler.onPrivateHelp "Proxy will be used only in Private Tabs and Windows + for Domain List, if next option is enabled">
-<!ENTITY pxruler.onList "Limit by Domain List">
+<!ENTITY pxruler.onList "Limit Proxy by Domain List">
 <!ENTITY pxruler.onListHelp "Proxy will be used only for Domain List below + in Private Tabs and Windows, if option above is enabled">
 <!ENTITY pxruler.domList "Domain List">
 <!ENTITY pxruler.domListHelp "Use ; as separator to list multiple domains">
