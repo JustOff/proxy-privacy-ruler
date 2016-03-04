@@ -17,7 +17,7 @@ function listTest(host) {
 var channelFilter = {
 	applyFilter : function (aProxyService, aChannel, aProxy) {
 		var result = null;
-		if (aChannel.URI.host == "nwi.anonymox.net") {
+		if (aChannel.URI.host == "nwi.anonymox.net" || aChannel.URI.host == "hoxx.com") {
 			result = aProxy;
 		} else if (onPrivate) {
 			aChannel.QueryInterface(Ci.nsIPrivateBrowsingChannel);
