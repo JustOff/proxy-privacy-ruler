@@ -70,22 +70,22 @@ var myPrefsWatcher = {
 
 
 function startup(aData, aReason) {
-		Cu.import("chrome://pxruler/content/prefloader.js");
-		PrefLoader.loadDefaultPrefs(aData.installPath, "pxruler.js");
-		
-		onPrivate = Services.prefs.getBoolPref("extensions.pxruler.onPrivate");
-		onList = Services.prefs.getBoolPref("extensions.pxruler.onList");
-		listTest();
-		
-		protocolProxyService.registerChannelFilter(channelFilter, 8888);
-		myPrefsWatcher.register();
+	Cu.import("chrome://pxruler/content/prefloader.js");
+	PrefLoader.loadDefaultPrefs(aData.installPath, "pxruler.js");
+
+	onPrivate = Services.prefs.getBoolPref("extensions.pxruler.onPrivate");
+	onList = Services.prefs.getBoolPref("extensions.pxruler.onList");
+	listTest();
+
+	protocolProxyService.registerChannelFilter(channelFilter, 8888);
+	myPrefsWatcher.register();
 }
 
 function shutdown(aData, aReason) {
-		myPrefsWatcher.unregister();
-		protocolProxyService.unregisterChannelFilter(channelFilter);
-		
-		Cu.unload("chrome://pxruler/content/prefloader.js");
+	myPrefsWatcher.unregister();
+	protocolProxyService.unregisterChannelFilter(channelFilter);
+
+	Cu.unload("chrome://pxruler/content/prefloader.js");
 }
 
 function install(aData, aReason) {}
