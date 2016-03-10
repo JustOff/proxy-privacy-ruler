@@ -56,7 +56,7 @@ var button = {
 	meta : {
 		id : "pxruler-button",
 		label : "Proxy Privacy Ruler",
-//		tooltiptext : "Toggle PXRuler on/off",
+		tooltiptext : "Proxy Privacy Ruler",
 		class : "toolbarbutton-1 chromeclass-toolbar-additional"
 	},
 	install : function (w) {
@@ -293,6 +293,9 @@ function startup(aData, aReason) {
 }
 
 function shutdown(aData, aReason) {
+
+	if (aReason == APP_SHUTDOWN) return;
+
 	var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
 	ww.unregisterNotification(gWindowListener);
 	gWindowListener = null;
