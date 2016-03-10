@@ -3,7 +3,7 @@ Cu.import("resource://gre/modules/Services.jsm");
 
 var branch = "extensions.pxruler.";
 var protocolProxyService = Cc["@mozilla.org/network/protocol-proxy-service;1"].getService(Ci.nsIProtocolProxyService);
-var isEnabled, onPrivate, onList, domRegex = null;
+var isEnabled, filterPos = 8888, onPrivate, onList, domRegex = null;
 
 function listTest(host) {
 	if (domRegex === null) {
@@ -180,7 +180,7 @@ var myPrefsWatcher = {
 		switch (data) {
 			case "isEnabled":
 				if (Services.prefs.getBranch(branch).getBoolPref("isEnabled")) {
-					protocolProxyService.registerChannelFilter(channelFilter, 8888);
+					protocolProxyService.registerChannelFilter(channelFilter, filterPos);
 					isEnabled = true;
 				} else {
 					protocolProxyService.unregisterChannelFilter(channelFilter);
@@ -274,7 +274,7 @@ function startup(aData, aReason) {
 	listTest();
 
 	if (isEnabled) {
-		protocolProxyService.registerChannelFilter(channelFilter, 8888);
+		protocolProxyService.registerChannelFilter(channelFilter, filterPos);
 	}
 	myPrefsWatcher.register();
 
