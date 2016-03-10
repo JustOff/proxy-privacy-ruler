@@ -1,0 +1,12 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@-moz-document url("chrome://browser/content/browser.xul") {
+	#pxruler-button {
+		-moz-image-region: rect(0, 48px, 16px, 32px);
+	}
+
+	#pxruler-button[cui-areatype="menu-panel"],
+		toolbarpaletteitem[place="palette"] > #pxruler-button {
+		-moz-image-region: rect(0, 32px, 32px, 0);
+	}
+}

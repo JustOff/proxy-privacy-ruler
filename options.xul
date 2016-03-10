@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE mydialog SYSTEM "chrome://pxruler/locale/pxruler.dtd">
 <vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<setting type="bool" pref="extensions.pxruler.isEnabled" title="&pxruler.isEnabled;" />
 	<setting type="bool" pref="extensions.pxruler.onPrivate" title="&pxruler.onPrivate;">
 		&pxruler.onPrivateHelp;
 	</setting>

@@ -1,3 +1,4 @@
+<!ENTITY pxruler.isEnabled "Enable">
 <!ENTITY pxruler.onPrivate "Limit Proxy by Private Browsing">
 <!ENTITY pxruler.onPrivateHelp "Proxy will be used only in Private Tabs and Windows + for Domain List, if next option is enabled">
 <!ENTITY pxruler.onList "Limit Proxy by Domain List">
