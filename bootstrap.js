@@ -3,7 +3,7 @@ Cu.import("resource://gre/modules/Services.jsm");
 
 var branch = "extensions.pxruler.";
 var protocolProxyService = Cc["@mozilla.org/network/protocol-proxy-service;1"].getService(Ci.nsIProtocolProxyService);
-var isEnabled, filterPos = 8888, onPrivate, onList, domRegex = null;
+var isEnabled, filterPos = 8888, onPrivate, onList, domRegex = null, gWindowListener;
 
 function listTest(host) {
 	if (domRegex === null) {
