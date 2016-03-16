@@ -18,7 +18,7 @@ function listTest(host) {
 }
 
 var channelFilter = {
-	applyFilter : function (aProxyService, aChannel, aProxy) {
+	applyFilter : function(aProxyService, aChannel, aProxy) {
 		var result = null;
 		if (aChannel.URI.host == "nwi.anonymox.net" || aChannel.URI.host == "hoxx.com") {
 			result = aProxy;
@@ -50,7 +50,7 @@ function $(node, childId) {
 	}
 }
 
-function bImg (b, img) {
+function bImg(b, img) {
 	b.style.listStyleImage = 'url("chrome://pxruler/skin/' + img + '.png")';
 }
 
@@ -61,7 +61,7 @@ var button = {
 		tooltiptext : "Proxy Privacy Ruler",
 		class : "toolbarbutton-1 chromeclass-toolbar-additional"
 	},
-	install : function (w) {
+	install : function(w) {
 		var doc = w.document;
 		var b = doc.createElement("toolbarbutton");
 		for (var a in this.meta) {
@@ -92,7 +92,7 @@ var button = {
 		}
 		return b;
 	},
-	onCustomize : function (e) {
+	onCustomize : function(e) {
 		var ucs = Services.prefs.getCharPref("browser.uiCustomization.state");
 		if ((/\"nav\-bar\"\:\[.*?\"pxruler\-button\".*?\]/).test(ucs)) {
 			Services.prefs.getBranch(branch).setCharPref("toolbarId", "nav-bar");
@@ -100,7 +100,7 @@ var button = {
 			button.setPrefs(null, null);
 		}
 	},
-	afterCustomize : function (e) {
+	afterCustomize : function(e) {
 		var toolbox = e.target,
 			b = $(toolbox.parentNode, button.meta.id),
 			toolbarId, nextItemId;
@@ -114,25 +114,25 @@ var button = {
 		}
 		button.setPrefs(toolbarId, nextItemId);
 	},
-	getPrefs : function () {
+	getPrefs : function() {
 		var p = Services.prefs.getBranch(branch);
 		return {
 			toolbarId : p.getCharPref("toolbarId"),
 			nextItemId : p.getCharPref("nextItemId")
 		};
 	},
-	setPrefs : function (toolbarId, nextItemId) {
+	setPrefs : function(toolbarId, nextItemId) {
 		var p = Services.prefs.getBranch(branch);
 		p.setCharPref("toolbarId", toolbarId == "nav-bar-customization-target" ? "nav-bar" : toolbarId || "");
 		p.setCharPref("nextItemId", nextItemId || "");
 	}
 };
 
-var buttonInject = function (w) {
+var buttonInject = function(w) {
 	var b = button.install(w);
 
 	var windowPrefsWatcher = {
-		observe: function (subject, topic, data) {
+		observe: function(subject, topic, data) {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "isEnabled":
@@ -144,25 +144,25 @@ var buttonInject = function (w) {
 				break;
 			}
 		},
-		register: function () {
+		register: function() {
 			var prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
 			this.prefBranch = prefsService.getBranch(branch);
 			this.prefBranch.addObserver("", this, false);
 		},
-		unregister: function () {
+		unregister: function() {
 			this.prefBranch.removeObserver("", this);
 		}
 	}
 
 	return {
-		init : function () {
+		init : function() {
 			windowPrefsWatcher.register();
 			w.addEventListener("customizationchange", button.onCustomize, false);
 			w.addEventListener("aftercustomization", button.afterCustomize, false);
 			b.addEventListener("command", this.run, false);
 			bImg(b, isEnabled ? "icon" : "icoff");
 		},
-		done : function () {
+		done : function() {
 			windowPrefsWatcher.unregister();
 			w.removeEventListener("customizationchange", button.onCustomize, false);
 			w.removeEventListener("aftercustomization", button.afterCustomize, false);
@@ -170,14 +170,14 @@ var buttonInject = function (w) {
 			b.parentNode.removeChild(b);
 			b = null;
 		},
-		run : function () {
+		run : function() {
 			Services.prefs.getBranch(branch).setBoolPref("isEnabled", !isEnabled);
 		}
 	};
 };
 
-var myPrefsWatcher = {
-	observe: function (subject, topic, data) {
+var prefObserver = {
+	observe: function(subject, topic, data) {
 		if (topic != "nsPref:changed") return;
 		switch (data) {
 			case "isEnabled":
@@ -204,22 +204,22 @@ var myPrefsWatcher = {
 				break;
 		}
 	},
-	register: function () {
+	register: function() {
 		var prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
 		this.prefBranch = prefsService.getBranch(branch);
 		this.prefBranch.addObserver("", this, false);
 	},
-	unregister: function () {
+	unregister: function() {
 		this.prefBranch.removeObserver("", this);
 	}
 }
 
-function BrowserWindowObserver(handlers) {
+function browserWindowObserver(handlers) {
 	this.handlers = handlers;
 }
 
-BrowserWindowObserver.prototype = {
-	observe: function (aSubject, aTopic, aData) {
+browserWindowObserver.prototype = {
+	observe: function(aSubject, aTopic, aData) {
 		if (aTopic == "domwindowopened") {
 			aSubject.QueryInterface(Ci.nsIDOMWindow).addEventListener("load", this, false);
 		} else if (aTopic == "domwindowclosed") {
@@ -228,7 +228,7 @@ BrowserWindowObserver.prototype = {
 			}
 		}
 	},
-	handleEvent: function (aEvent) {
+	handleEvent: function(aEvent) {
 		let aWindow = aEvent.currentTarget;
 		aWindow.removeEventListener(aEvent.type, this, false);
 
@@ -238,12 +238,12 @@ BrowserWindowObserver.prototype = {
 	}
 };
 
-function browserWindowStartup (aWindow) {
+function browserWindowStartup(aWindow) {
 	aWindow.pxruler = buttonInject(aWindow);
 	aWindow.pxruler.init()
 }
 
-function browserWindowShutdown (aWindow) {
+function browserWindowShutdown(aWindow) {
 	aWindow.pxruler.done();
 	delete aWindow.pxruler;
 }
@@ -265,10 +265,10 @@ function startup(aData, aReason) {
 	if (isEnabled) {
 		protocolProxyService.registerChannelFilter(channelFilter, filterPos);
 	}
-	myPrefsWatcher.register();
+	prefObserver.register();
 
 	var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
-	gWindowListener = new BrowserWindowObserver({
+	gWindowListener = new browserWindowObserver({
 		onStartup: browserWindowStartup,
 		onShutdown: browserWindowShutdown
 	});
@@ -295,7 +295,7 @@ function shutdown(aData, aReason) {
 		browserWindowShutdown(winenu.getNext());
 	}
 
-	myPrefsWatcher.unregister();
+	prefObserver.unregister();
 	if (isEnabled) {
 		protocolProxyService.unregisterChannelFilter(channelFilter);
 	}
