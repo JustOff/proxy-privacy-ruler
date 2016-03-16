@@ -3,6 +3,8 @@ Cu.import("resource://gre/modules/Services.jsm");
 
 var branch = "extensions.pxruler.";
 var protocolProxyService = Cc["@mozilla.org/network/protocol-proxy-service;1"].getService(Ci.nsIProtocolProxyService);
+var styleSheetService = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+var styleSheetURI = Services.io.newURI("chrome://pxruler/skin/pxruler.css", null, null);
 var isEnabled, filterPos = 8888, onPrivate, onList, domRegex = null, gWindowListener;
 
 function listTest(host) {
@@ -236,23 +238,7 @@ BrowserWindowObserver.prototype = {
 	}
 };
 
-function manageCSS (loadCSS) {
-	var sss = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
-	var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-	var uri = ios.newURI("chrome://pxruler/skin/pxruler.css", null, null);
-	if (loadCSS) {
-		if (!sss.sheetRegistered(uri, sss.USER_SHEET)) {
-			sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
-		}
-	} else {
-		if(sss.sheetRegistered(uri, sss.USER_SHEET)) {
-			sss.unregisterSheet(uri, sss.USER_SHEET);
-		}
-	}
-}
-
 function browserWindowStartup (aWindow) {
-	manageCSS(true);
 	aWindow.pxruler = buttonInject(aWindow);
 	aWindow.pxruler.init()
 }
@@ -260,12 +246,15 @@ function browserWindowStartup (aWindow) {
 function browserWindowShutdown (aWindow) {
 	aWindow.pxruler.done();
 	delete aWindow.pxruler;
-	manageCSS(false);
 }
 
 function startup(aData, aReason) {
 	Cu.import("chrome://pxruler/content/prefloader.js");
 	PrefLoader.loadDefaultPrefs(aData.installPath, "pxruler.js");
+
+	if (!styleSheetService.sheetRegistered(styleSheetURI, styleSheetService.USER_SHEET)) {
+		styleSheetService.loadAndRegisterSheet(styleSheetURI, styleSheetService.USER_SHEET);
+	}
 
 	var p = Services.prefs.getBranch(branch);
 	isEnabled = p.getBoolPref("isEnabled");
@@ -309,6 +298,10 @@ function shutdown(aData, aReason) {
 	myPrefsWatcher.unregister();
 	if (isEnabled) {
 		protocolProxyService.unregisterChannelFilter(channelFilter);
+	}
+
+	if (styleSheetService.sheetRegistered(styleSheetURI, styleSheetService.USER_SHEET)) {
+		styleSheetService.unregisterSheet(styleSheetURI, styleSheetService.USER_SHEET);
 	}
 
 	Cu.unload("chrome://pxruler/content/prefloader.js");
