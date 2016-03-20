@@ -170,8 +170,12 @@ var buttonInject = function(w) {
 			b.parentNode.removeChild(b);
 			b = null;
 		},
-		run : function() {
-			Services.prefs.getBranch(branch).setBoolPref("isEnabled", !isEnabled);
+		run : function(e) {
+			if (e.ctrlKey || e.metaKey) {
+				Services.wm.getMostRecentWindow("navigator:browser").BrowserOpenAddonsMgr("addons://detail/pxruler@Off.JustOff/preferences");
+			} else {
+				Services.prefs.getBranch(branch).setBoolPref("isEnabled", !isEnabled);
+			}
 		}
 	};
 };
