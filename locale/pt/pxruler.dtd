@@ -1,0 +1,7 @@
+<!ENTITY pxruler.isEnabled "Ativar">
+<!ENTITY pxruler.onPrivate "Limitar proxy para navegação privada">
+<!ENTITY pxruler.onPrivateHelp "O proxy apenas será utilizado em separadores privados, janelas e na lista de domínios se a opção seguinte estiver ativa">
+<!ENTITY pxruler.onList "Limitar proxy por lista de domínios">
+<!ENTITY pxruler.onListHelp "O proxy apenas será utilizado para a lista de domínios, separadores privados e janelas se a opção acima estiver ativa">
+<!ENTITY pxruler.domList "Lista de domínios">
+<!ENTITY pxruler.domListHelp "Utilize ; para separar os diversos domínios">

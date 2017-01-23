@@ -1,0 +1,7 @@
+<!ENTITY pxruler.isEnabled "Activer">
+<!ENTITY pxruler.onPrivate "Limiter le proxy à la navigation privée">
+<!ENTITY pxruler.onPrivateHelp "Le proxy sera utilisé avec les fenêtres et onglets de navigation privée + liste de domaines, si l'option suivante est activée">
+<!ENTITY pxruler.onList "Limiter le proxy à la liste de domaines">
+<!ENTITY pxruler.onListHelp "Le proxy sera utilisé seulement pour la liste de domaines ci-dessous + fenêtres et onglets de navigation privée, si l'option ci-dessus est activée">
+<!ENTITY pxruler.domList "Liste de domaines">
+<!ENTITY pxruler.domListHelp "Utiliser « ; » comme séparateur pour lister plusieurs domaines">
