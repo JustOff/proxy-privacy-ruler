@@ -95,12 +95,14 @@ var button = {
 		return b;
 	},
 	onCustomize : function(e) {
-		var ucs = Services.prefs.getCharPref("browser.uiCustomization.state");
-		if ((/\"nav\-bar\"\:\[.*?\"pxruler\-button\".*?\]/).test(ucs)) {
-			Services.prefs.getBranch(branch).setCharPref("toolbarId", "nav-bar");
-		} else {
-			button.setPrefs(null, null);
-		}
+		try {
+			var ucs = Services.prefs.getCharPref("browser.uiCustomization.state");
+			if ((/\"nav\-bar\"\:\[.*?\"pxruler\-button\".*?\]/).test(ucs)) {
+				Services.prefs.getBranch(branch).setCharPref("toolbarId", "nav-bar");
+			} else {
+				button.setPrefs(null, null);
+			}
+		} catch(e) {}
 	},
 	afterCustomize : function(e) {
 		var toolbox = e.target,
@@ -174,7 +176,12 @@ var buttonInject = function(w) {
 		},
 		run : function(e) {
 			if (e.ctrlKey || e.metaKey) {
-				Services.wm.getMostRecentWindow("navigator:browser").BrowserOpenAddonsMgr("addons://detail/pxruler@Off.JustOff/preferences");
+				var mrw = Services.wm.getMostRecentWindow("navigator:browser");
+				if (typeof mrw.BrowserOpenAddonsMgr != "undefined") {
+					mrw.BrowserOpenAddonsMgr("addons://detail/pxruler@Off.JustOff/preferences");
+				} else if (typeof mrw.toEM != "undefined") {
+					mrw.toEM("addons://detail/pxruler@Off.JustOff/preferences");
+				}
 			} else {
 				Services.prefs.getBranch(branch).setBoolPref("isEnabled", !isEnabled);
 			}
