@@ -11,7 +11,7 @@ function listTest(host) {
 	if (domRegex === null) {
 		try {
 			var domList = Services.prefs.getBranch(branch).getCharPref("domList");
-			domRegex = new RegExp("^([^.]+\\.)*(" + domList.replace(/;/g,"|").replace(/\./g,"\\.") + ")$");
+			domRegex = new RegExp("^([^.]+\\.)*(" + domList.replace(/;/g,"|").replace(/\./g,"\\.") + ")\\.?$");
 		} catch (e) {}
 	}
 	return domRegex.test(host);
