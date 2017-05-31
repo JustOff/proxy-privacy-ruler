@@ -11,8 +11,10 @@ function listTest(host) {
 	if (domRegex === null) {
 		try {
 			var domList = Services.prefs.getBranch(branch).getCharPref("domList");
-			domRegex = new RegExp("^([^.]+\\.)*(" + domList.replace(/;/g,"|").replace(/\./g,"\\.") + ")\\.?$");
-		} catch (e) {}
+			domRegex = new RegExp("^([^.]+\\.)*(" + domList.replace(/(\*\.?|\s+\.?|^\.)/g,"").replace(/;\.?/g,"|").replace(/\./g,"\\.") + ")\\.?$");
+		} catch (e) {
+			return false;
+		}
 	}
 	return domRegex.test(host);
 }
