@@ -9,6 +9,7 @@
 	<em:description>Restrict Proxy by Private Windows, Tabs and Domain List</em:description>
 	<em:creator>Off JustOff &lt;Off.Just.Off@gmail.com&gt;</em:creator>
 	<em:homepageURL>https://addons.mozilla.org/addon/proxy-privacy-ruler/</em:homepageURL>
+	<em:multiprocessCompatible>true</em:multiprocessCompatible>
 	<em:localized>
 		<Description>
 			<em:locale>es</em:locale>
