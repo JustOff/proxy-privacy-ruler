@@ -10,7 +10,7 @@ var isEnabled, filterPos = 8888, onPrivate, onList, domRegex = null, gWindowList
 function listTest(host) {
 	if (domRegex === null) {
 		try {
-			var domList = Services.prefs.getBranch(branch).getCharPref("domList");
+			var domList = Services.prefs.getBranch(branch).getComplexValue("domList", Ci.nsISupportsString).data;
 			domRegex = new RegExp("^([^.]+\\.)*(" + domList.replace(/(\*\.?|\s+\.?|^\.)/g,"").replace(/;\.?/g,"|").replace(/\./g,"\\.") + ")\\.?$");
 		} catch (e) {
 			return false;
