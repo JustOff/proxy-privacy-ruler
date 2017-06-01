@@ -211,7 +211,7 @@ var prefObserver = {
 				onList = Services.prefs.getBranch(branch).getBoolPref("onList");
 				break;
 			case "domList":
-				var domList = Services.prefs.getBranch(branch).getCharPref("domList");
+				var domList = Services.prefs.getBranch(branch).getComplexValue("domList", Ci.nsISupportsString).data;
 				if (domList == "") {
 					Services.prefs.getBranch(branch).clearUserPref("domList");
 				}
